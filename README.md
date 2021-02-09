@@ -22,8 +22,9 @@ being organized, so this project should have a good return value for me.
 
 ## User Stories
 
-- item 1
-- item 2
-- item 3
-- item 4
-- item 5
+- As a user I want to be able to add plans/activities by the hour for a 24-hour period in a day
+- As a user I want to be able to delete plans/activities by the hour for a 24-hour period in a day
+- As a user I to be able to view my full 24-hour plan for the day
+- As a user I want to be able to be notified when attempting to schedule a slot that is already scheduled that there
+  is a conflict
+- As a user I want to be able to name my schedule and specify what day of the week it occurs on
