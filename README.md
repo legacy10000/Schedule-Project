@@ -9,6 +9,8 @@ I hope that it in its **full glory** it will be able to:
 - Display the users schedule for that day as a small side application similar to widgets found on mobile devices
 - Allow users to click and drag slots in the schedule to shift if something urgent comes up
 - Remind the users on Sunday to set their schedule for the week
+- Notify users when attempting to schedule a slot that is already scheduled that there
+  is a conflict
 
 These are the end game goals for the project, hence some may be out of my scope at the moment, but I will work 
 hard towards them at least.
@@ -24,7 +26,5 @@ being organized, so this project should have a good return value for me.
 
 - As a user I want to be able to add plans/activities by the hour for a 24-hour period in a day
 - As a user I want to be able to delete plans/activities by the hour for a 24-hour period in a day
-- As a user I to be able to view my full 24-hour plan for the day
-- As a user I want to be able to be notified when attempting to schedule a slot that is already scheduled that there
-  is a conflict
+- As a user I to be able to view my 24-hour plan for the day
 - As a user I want to be able to name my schedule and specify what day of the week it occurs on
