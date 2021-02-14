@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+// test class for Day
 public class DayTest {
     private Day testDay;
     private Activity testSleep;
@@ -23,16 +24,13 @@ public class DayTest {
         testCpsc121 = new Activity("CPSC 121", 2, 3);
         testCpsc210 = new Activity("CPSC 210", 3, 4);
         testFull = new Activity("FULL", 0, 23);
-        testDay = new Day("Tuesday", "Test Plan", 8, "January", 2002);
+        testDay = new Day("Tuesday", "Test Plan");
     }
 
     @Test
     public void testConstructor() {
         assertEquals("Tuesday", testDay.getDayOfWeek());
         assertEquals("Test Plan", testDay.getPlanName());
-        assertEquals(8, testDay.getDayNumber());
-        assertEquals("January", testDay.getMonth());
-        assertEquals(2002, testDay.getYear());
     }
 
     @Test

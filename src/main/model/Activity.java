@@ -1,7 +1,7 @@
 package model;
 
 
-// Represents an activity scheduled in a day, its name, (start time and end time)?
+// Represents an activity scheduled in a day, its name, start time and end time
 public class Activity {
     private String actName;  // the name of the activity
     private int start;       // the starting time of the activity
