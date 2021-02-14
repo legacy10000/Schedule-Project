@@ -8,7 +8,7 @@ public class Activity {
     private int end;         // the ending time of the activity
 
     //REQUIRES: begin from 0 to 23, stop from 1 to 24, begin < stop
-    //EFFECTS: creates a new activity to be input in the schedule, taking up hourly slots
+    //EFFECTS: creates a new activity to be input in the schedule, with name, start and end time
     public Activity(String name, int begin, int stop) {
         actName = name;
         start = begin;

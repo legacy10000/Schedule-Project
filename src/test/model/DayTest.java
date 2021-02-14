@@ -45,6 +45,7 @@ public class DayTest {
         testDay.addActivity(testSleep);
         assertEquals(testSleep.getActName(), testDay.getPlan().get(testSleep.getStart()).getActName());
         assertEquals(testSleep.getActName(), testDay.getPlan().get((testSleep.getStart()+ 4)).getActName());
+        assertEquals(testSleep.getActName(), testDay.getPlan().get((testSleep.getEnd()- 1)).getActName());
         assertEquals("Available", testDay.getPlan().get(testSleep.getEnd()).getActName());
     }
 
@@ -81,6 +82,7 @@ public class DayTest {
         assertEquals("Available", testDay.getPlan().get(testCpsc210.getStart()).getActName());
         assertEquals("Available", testDay.getPlan().get(testSleep.getStart()).getActName());
         assertEquals("Available", testDay.getPlan().get((testSleep.getStart() + 6)).getActName());
+        assertEquals("Available", testDay.getPlan().get((testSleep.getEnd()- 1)).getActName());
         assertEquals("Available", testDay.getPlan().get(testSleep.getEnd()).getActName());
 
     }
@@ -89,6 +91,8 @@ public class DayTest {
     public void testClearSchedule() {
         testDay.addActivity(testFull);
         testDay.clearSchedule();
+        assertEquals("Available", testDay.getPlan().get(0).getActName());
         assertEquals("Available", testDay.getPlan().get(12).getActName());
+        assertEquals("Available", testDay.getPlan().get(23).getActName());
     }
 }

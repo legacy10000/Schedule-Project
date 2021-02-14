@@ -8,6 +8,8 @@ public class Day {
     private String planName;            // the name of the plan being created
     private String dayOfWeek;           // day of the week
 
+    //EFFECTS: Creates a new day to insert activities in starting with "Available" slots from 0:00-1:00 to 23:00-24:00,
+    //         also includes day of the week and name of schedule
     public Day(String dw, String pn) {
         planName = pn;
         dayOfWeek = dw;
@@ -18,7 +20,6 @@ public class Day {
 
     }
 
-    //add activity
     //MODIFIES: this
     //EFFECTS: adds a new activity in the schedule in start time order
     public void addActivity(Activity a) {
@@ -27,7 +28,6 @@ public class Day {
         }
     }
 
-    //remove activity with name plan.get(i).getActName() == s
     //MODIFIES: this
     //EFFECTS: removes the specified activity in the list if found (including same names at diff times)
     public void removeActivity(String s) {
@@ -38,7 +38,6 @@ public class Day {
         }
     }
 
-    //clear schedule
     //MODIFIES: this
     //EFFECTS: clears the current schedule entirely, resetting every slot to available
     public void clearSchedule() {

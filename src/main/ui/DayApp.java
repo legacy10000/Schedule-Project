@@ -8,7 +8,6 @@ import java.util.Scanner;
 // The ui application for the Day schedule
 public class DayApp {
     private Day schedule;
-    private Activity activity;
     private Scanner input;
 
     // EFFECTS: runs the schedule app
@@ -16,9 +15,11 @@ public class DayApp {
         runDayApp();
     }
 
+    //MODIFIES: this
+    //EFFECTS: processes users inputs in the application
     private void runDayApp() {
         boolean stillActive = true;
-        String command = null;
+        String command;
 
         System.out.println("Welcome to the 24-Hour Schedule application! Please enter the following information.");
         input = new Scanner(System.in);
@@ -35,7 +36,8 @@ public class DayApp {
             }
         }
 
-        //Print schedule one last time???
+        System.out.println("\nHere's your schedule one last time before you go!");
+        printDaySchedule();
         System.out.println("\nSee you next time!");
 
     }
@@ -64,16 +66,22 @@ public class DayApp {
     //MODIFIES: this
     //EFFECTS: does the users requested command
     private void doCommand(String command) {
-        if (command.equals("a")) {
-            doAdd();
-        } else if (command.equals("r")) {
-            doRemove();
-        } else if (command.equals("c")) {
-            doClear();
-        } else if (command.equals("d")) {
-            printDaySchedule();
-        } else {
-            System.out.println("Please enter a valid input.");
+        switch (command) {
+            case "a":
+                doAdd();
+                break;
+            case "r":
+                doRemove();
+                break;
+            case "c":
+                doClear();
+                break;
+            case "d":
+                printDaySchedule();
+                break;
+            default:
+                System.out.println("Please enter a valid input.");
+                break;
         }
     }
 
@@ -92,10 +100,10 @@ public class DayApp {
             System.out.println("Start time must be less than end time, please enter again.");
         } else if ((st < 0) || (st > 23)) {
             System.out.println("Start time ranges from 0 to 23 integers inclusive, please enter again.");
-        } else if ((ed < 1) || (ed > 24)) {
+        } else if (ed > 24) {
             System.out.println("End time ranges from 1 to 24 integers inclusive, please enter again.");
         } else {
-            activity = new Activity(name, st, ed);
+            Activity activity = new Activity(name, st, ed);
             schedule.addActivity(activity);
         }
     }
