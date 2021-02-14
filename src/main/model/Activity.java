@@ -7,7 +7,7 @@ public class Activity {
     private int start;       // the starting time of the activity
     private int end;         // the ending time of the activity
 
-    //REQUIRES: begin and stop range from 0 to 24 inclusive, begin < stop
+    //REQUIRES: begin from 0 to 23, stop from 1 to 24, begin < stop
     //EFFECTS: creates a new activity to be input in the schedule, taking up hourly slots
     public Activity(String name, int begin, int stop) {
         actName = name;

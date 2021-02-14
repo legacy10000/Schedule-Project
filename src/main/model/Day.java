@@ -12,58 +12,50 @@ public class Day {
     private int year;                   // the current year
 
     public Day(String dw, String pn, int dn, String m, int y) {
-        plan = new LinkedList<Activity>();
         planName = pn;
         dayOfWeek = dw;
         dayNumber = dn;
         month = m;
         year = y;
+        plan = new LinkedList<Activity>();
+        for (int i = 0; i <= 23; i++) {
+            plan.addLast(new Activity("Available", i, (i + 1)));
+        }
 
     }
 
     //add activity
     //MODIFIES: this
-    //EFFECTS: adds a new activity in the list in start time order
+    //EFFECTS: adds a new activity in the schedule in start time order
     public void addActivity(Activity a) {
-        if (plan.size() == 0) {
-            plan.add(a.getStart(), a);
-        } else if (plan.getFirst().getStart() > a.getStart()) {
-            plan.add(0, a);
-        } else if (plan.get((plan.size() - 1)).getStart() < a.getStart()) {
-            plan.add(plan.size(), a);
-        } else {
-            int pos = 0;
-            while (plan.get(pos).getStart() < a.getStart()) {
-                pos++;
-            }
-            plan.add(pos, a);
+        for (int i = a.getStart(); i < a.getEnd(); i++) {
+            plan.set(i, new Activity(a.getActName(), i, (i + 1)));
         }
-
-    }
-
-    //remove activity
-    //MODIFIES: this
-    //EFFECTS: removes the specified activity in the list if found, if share the same name first is removed
-    public void removeActivity(Activity a) {
-        plan.removeFirstOccurrence(a);
     }
 
     //remove activity with name plan.get(i).getActName() == s
     //MODIFIES: this
     //EFFECTS: removes the specified activity in the list if found (including same names at diff times)
-    public void removeActivityName(String s) {
-        for (int i = 0; i <= plan.size(); i++) {
+    public void removeActivity(String s) {
+        for (int i = 0; i < plan.size(); i++) {
             if (plan.get(i).getActName() == s) {
-                plan.remove(i);
+                plan.set(i, new Activity("Available", i, (i + 1)));
             }
         }
     }
 
     //clear schedule
     //MODIFIES: this
-    //EFFECTS: clears the current schedule entirely
+    //EFFECTS: clears the current schedule entirely, resetting every slot to available
     public void clearSchedule() {
-        plan.clear();
+        for (int i = 0; i < plan.size(); i++) {
+            plan.set(i, new Activity("Available", i, (i + 1)));
+        }
+    }
+
+    //get plan name
+    public String getPlanName() {
+        return planName;
     }
 
     //get plan
@@ -101,3 +93,23 @@ public class Day {
 
     //set year
 }
+
+
+    /*
+    public void addActivity(Activity a) {
+        if (plan.size() == 0) {
+            plan.add(a.getStart(), a);
+        } else if (plan.getFirst().getStart() > a.getStart()) {
+            plan.add(0, a);
+        } else if (plan.get((plan.size() - 1)).getStart() < a.getStart()) {
+            plan.add(plan.size(), a);
+        } else {
+            int pos = 0;
+            while (plan.get(pos).getStart() < a.getStart()) {
+                pos++;
+            }
+            plan.add(pos, a);
+        }
+
+    }
+     */
