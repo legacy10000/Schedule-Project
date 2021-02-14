@@ -2,6 +2,7 @@ package model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 // test class for Day
@@ -16,7 +17,7 @@ public class DayTest {
     private Activity testFull;
 
     @BeforeEach
-    public void runBefore () {
+    public void runBefore() {
         testSleep = new Activity("Sleep Morning", 0, 9);
         testWorkout = new Activity("Workout", 9, 10);
         testMath101 = new Activity("MATH 101", 10, 12);
@@ -44,8 +45,8 @@ public class DayTest {
     public void testAddActivityLarge() {
         testDay.addActivity(testSleep);
         assertEquals(testSleep.getActName(), testDay.getPlan().get(testSleep.getStart()).getActName());
-        assertEquals(testSleep.getActName(), testDay.getPlan().get((testSleep.getStart()+ 4)).getActName());
-        assertEquals(testSleep.getActName(), testDay.getPlan().get((testSleep.getEnd()- 1)).getActName());
+        assertEquals(testSleep.getActName(), testDay.getPlan().get((testSleep.getStart() + 4)).getActName());
+        assertEquals(testSleep.getActName(), testDay.getPlan().get((testSleep.getEnd() - 1)).getActName());
         assertEquals("Available", testDay.getPlan().get(testSleep.getEnd()).getActName());
     }
 
@@ -55,7 +56,7 @@ public class DayTest {
         testDay.addActivity(testWorkout);
         testDay.addActivity(testCpsc210);
         assertEquals(testSleep.getActName(), testDay.getPlan().get(testSleep.getStart()).getActName());
-        assertEquals(testSleep.getActName(), testDay.getPlan().get((testSleep.getStart()+ 4)).getActName());
+        assertEquals(testSleep.getActName(), testDay.getPlan().get((testSleep.getStart() + 4)).getActName());
         assertEquals(testWorkout.getActName(), testDay.getPlan().get(testWorkout.getStart()).getActName());
         assertEquals(testCpsc210.getActName(), testDay.getPlan().get(testCpsc210.getStart()).getActName());
     }
@@ -82,7 +83,7 @@ public class DayTest {
         assertEquals("Available", testDay.getPlan().get(testCpsc210.getStart()).getActName());
         assertEquals("Available", testDay.getPlan().get(testSleep.getStart()).getActName());
         assertEquals("Available", testDay.getPlan().get((testSleep.getStart() + 6)).getActName());
-        assertEquals("Available", testDay.getPlan().get((testSleep.getEnd()- 1)).getActName());
+        assertEquals("Available", testDay.getPlan().get((testSleep.getEnd() - 1)).getActName());
         assertEquals("Available", testDay.getPlan().get(testSleep.getEnd()).getActName());
 
     }

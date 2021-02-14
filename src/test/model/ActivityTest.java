@@ -2,6 +2,7 @@ package model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 // test class for Activity
@@ -9,7 +10,7 @@ public class ActivityTest {
     private Activity testActivity;
 
     @BeforeEach
-    public void runBefore () {
+    public void runBefore() {
         testActivity = new Activity("Test", 0, 1);
     }
 
