@@ -7,7 +7,7 @@ import java.io.*;
 
 // Represents a writer that writes JSON representation of day to file
 public class JsonDayWriter {
-    private static final int TAB = 24;
+    private static final int TAB = 4;
     private PrintWriter writer;
     private String destination;
 

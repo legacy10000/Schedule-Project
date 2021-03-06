@@ -5,7 +5,6 @@ import model.Activity;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,7 +18,7 @@ public class JsonWriterTest {
             writer.openFile();
             fail("The IOException was expected");
         } catch (IOException e) {
-            // Yaya good job!!!
+            // Yay good job!!!
         }
     }
 
@@ -50,7 +49,7 @@ public class JsonWriterTest {
             Day d = new Day("Friday", "Last day!");
             Activity sleep = new Activity("Sleep Morning", 0, 9);
             Activity workout = new Activity("Workout", 9, 10);
-            Activity dinner = new Activity("MATH 101", 17, 18);
+            Activity dinner = new Activity("Dinner", 17, 18);
             d.addActivity(sleep);
             d.addActivity(workout);
             d.addActivity(dinner);
