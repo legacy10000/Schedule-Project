@@ -1,8 +1,11 @@
 package model;
 
 
+import persistence.Writable;
+import org.json.JSONObject;
+
 // Represents an activity scheduled in a day, its name, start time and end time
-public class Activity {
+public class Activity implements Writable {
     private String actName;  // the name of the activity
     private int start;       // the starting time of the activity
     private int end;         // the ending time of the activity
@@ -29,5 +32,15 @@ public class Activity {
     //getter
     public String getActName() {
         return actName;
+    }
+
+    // DESCRIPTION?
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", actName);
+        json.put("start", start);
+        json.put("end", end);
+        return json;
     }
 }

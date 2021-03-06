@@ -2,8 +2,12 @@ package model;
 
 import java.util.LinkedList;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 // Represents a day with 24 hours to schedule
-public class Day {
+public class Day implements Writable {
     private LinkedList<Activity> plan;  // the 24 hour plan for the day
     private String planName;            // the name of the plan being created
     private String dayOfWeek;           // day of the week
@@ -61,4 +65,23 @@ public class Day {
         return dayOfWeek;
     }
 
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("plan name", planName);
+        json.put("day of the week", dayOfWeek);
+        json.put("plan", planToJson());
+        return json;
+    }
+
+    // EFFECTS: returns things in this workroom as a JSON array
+    private JSONArray planToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Activity a : plan) {
+            jsonArray.put(a.toJson());
+        }
+
+        return jsonArray;
+    }
 }
