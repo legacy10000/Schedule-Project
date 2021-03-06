@@ -49,7 +49,7 @@ public class JsonDayReader {
     }
 
     // MODIFIES: day
-    // EFFECTS: parses activities from JSON object and adds them to day
+    // EFFECTS: parses activities(plan) from JSON object and adds them to day
     private void addDay(Day day, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("plan");
         for (Object json : jsonArray) {

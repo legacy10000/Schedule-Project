@@ -44,4 +44,34 @@ public class JsonWriterTest {
         }
     }
 
+    @Test
+    void testWriterScheduleWithStuff() {
+        try {
+            Day d = new Day("Friday", "Last day!");
+            Activity sleep = new Activity("Sleep Morning", 0, 9);
+            Activity workout = new Activity("Workout", 9, 10);
+            Activity dinner = new Activity("MATH 101", 17, 18);
+            d.addActivity(sleep);
+            d.addActivity(workout);
+            d.addActivity(dinner);
+            JsonDayWriter writer = new JsonDayWriter("./data/testWriterScheduleWithStuff.json");
+            writer.openFile();
+            writer.write(d);
+            writer.closeFile();
+
+            JsonDayReader reader = new JsonDayReader("./data/testWriterScheduleWithStuff.json");
+            d = reader.read();
+            assertEquals("Friday", d.getDayOfWeek());
+            assertEquals("Last day!", d.getPlanName());
+            assertEquals(sleep.getActName(), d.getPlan().get(sleep.getStart()).getActName());
+            assertEquals(sleep.getActName(), d.getPlan().get((sleep.getStart() + 4)).getActName());
+            assertEquals(workout.getActName(), d.getPlan().get(workout.getStart()).getActName());
+            assertEquals("Available", d.getPlan().get(workout.getStart() + 1).getActName());
+            assertEquals(dinner.getActName(), d.getPlan().get(dinner.getStart()).getActName());
+
+        } catch (IOException e) {
+            fail("Exception should not have been thrown");
+        }
+    }
+
 }
