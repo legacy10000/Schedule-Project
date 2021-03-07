@@ -8,6 +8,9 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+// test class for JsonWriterTest
+// Citation: code was obtained from JsonSerializationDemo
+// URL: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
 public class JsonWriterTest {
 
     @Test

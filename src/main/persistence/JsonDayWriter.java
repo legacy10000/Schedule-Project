@@ -1,11 +1,15 @@
 package persistence;
 
 import java.io.PrintWriter;
+
 import model.Day;
 import org.json.JSONObject;
+
 import java.io.*;
 
 // Represents a writer that writes JSON representation of day to file
+// Citation: code was obtained from JsonSerializationDemo
+// URL: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
 public class JsonDayWriter {
     private static final int TAB = 4;
     private PrintWriter writer;

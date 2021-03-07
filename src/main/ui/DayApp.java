@@ -2,16 +2,25 @@ package ui;
 
 import model.Activity;
 import model.Day;
+import persistence.JsonDayReader;
+import persistence.JsonDayWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 // The ui application for the Day schedule
+// Citation: some of the code was obtained from JsonSerializationDemo
+// URL: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
 public class DayApp {
+    private static final String JSON_STORE_DAY = "./data/day.json";
     private Day schedule;
     private Scanner input;
+    private JsonDayWriter jsonDayWriter;
+    private JsonDayReader jsonDayReader;
 
     // EFFECTS: runs the schedule app
-    public DayApp() {
+    public DayApp() throws FileNotFoundException {
         runDayApp();
     }
 
@@ -21,8 +30,10 @@ public class DayApp {
         boolean stillActive = true;
         String command;
 
-        System.out.println("Welcome to the 24-Hour Schedule application! Please enter the following information.");
+        System.out.println("Welcome to the 24-Hour Schedule application! Please answer the following information.");
         input = new Scanner(System.in);
+        jsonDayWriter = new JsonDayWriter(JSON_STORE_DAY);
+        jsonDayReader = new JsonDayReader(JSON_STORE_DAY);
         initializeSchedule();
 
         while (stillActive) {
@@ -30,6 +41,7 @@ public class DayApp {
             command = input.next();
             command = command.toLowerCase();
             if (command.equals("q")) {
+                saveBeforeQuit();
                 stillActive = false;
             } else {
                 doCommand(command);
@@ -43,13 +55,16 @@ public class DayApp {
     }
 
     //MODIFIES: this
-    // EFFECTS: initializes a day for the user with the day of the week and plan name
+    // EFFECTS: starts a new schedule for the user or or loads previous schedule
     private void initializeSchedule() {
-        System.out.print("Enter day of week: ");
-        String week = input.nextLine();
-        System.out.print("Enter schedule name: ");
-        String name = input.nextLine();
-        schedule = new Day(week, name);
+        System.out.print("Do you want to load previous schedule? Respond with 'y' else new enter new details: ");
+        String answer = input.next();
+        answer = answer.toLowerCase();
+        if (answer.equals("y")) {
+            loadSchedule();
+        } else {
+            newSchedule();
+        }
 
     }
 
@@ -60,6 +75,8 @@ public class DayApp {
         System.out.println("\tr --> Remove activity");
         System.out.println("\tc --> Clear schedule");
         System.out.println("\td --> Display schedule");
+        System.out.println("\ts --> Save current schedule to file");
+        System.out.println("\tl --> Load last saved schedule from file");
         System.out.println("\tq --> Quit");
     }
 
@@ -78,6 +95,12 @@ public class DayApp {
                 break;
             case "d":
                 printDaySchedule();
+                break;
+            case "s":
+                saveSchedule();
+                break;
+            case "l":
+                loadSchedule();
                 break;
             default:
                 System.out.println("Please enter a valid input.");
@@ -139,4 +162,48 @@ public class DayApp {
             System.out.println(h.getActName());
         }
     }
+
+    // EFFECTS: saves the schedule to file
+    private void saveSchedule() {
+        try {
+            jsonDayWriter.openFile();
+            jsonDayWriter.write(schedule);
+            jsonDayWriter.closeFile();
+            System.out.println("Saved " + schedule.getPlanName() + " to " + JSON_STORE_DAY);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE_DAY);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads schedule from file
+    private void loadSchedule() {
+        try {
+            schedule = jsonDayReader.read();
+            System.out.println("Loaded " + schedule.getPlanName() + " from " + JSON_STORE_DAY);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE_DAY);
+        }
+    }
+
+    // EFFECTS: saves the schedule to file before quitting if user replies with 'y'
+    private void saveBeforeQuit() {
+        System.out.print("Do you want to save before quitting?? Confirm with 'y', else no final save. ");
+        String answer = input.next();
+        answer = answer.toLowerCase();
+        if (answer.equals("y")) {
+            saveSchedule();
+        }
+    }
+
+    //MODIFIES: this
+    // EFFECTS: initializes a new day for the user with the day of the week and plan name
+    public void newSchedule() {
+        System.out.print("Enter schedule name: ");
+        String name = input.next();
+        System.out.print("Enter day of week: ");
+        String week = input.next();
+        schedule = new Day(week, name);
+    }
+
 }
