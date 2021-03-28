@@ -8,13 +8,14 @@ import java.awt.event.*;
 import java.io.IOException;
 import javax.swing.*;
 
-public class OpeningGUI implements ActionListener {
+// The Opening UI is the first ui displayed to the user, with load and new options
+// Citation: some code was obtained from JsonSerializationDemo
+// URL: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
+public class OpeningGUI extends ClickSound implements ActionListener {
 
     private static final String newString = "New";
     private static final String loadString = "Load";
     private static final String JSON_STORE_DAY = "./data/day.json";
-
-    private JLabel welcomeLabel;
 
     private Day schedule;
     private JsonDayReader jsonDayReader;
@@ -23,9 +24,12 @@ public class OpeningGUI implements ActionListener {
     JButton newButton = new JButton(newString);
     JButton loadButton = new JButton(loadString);
 
+
+    // MODIFIES: this
+    // EFFECTS: initializes the Opening GUI menu and displays it
     public OpeningGUI() {
         jsonDayReader = new JsonDayReader(JSON_STORE_DAY);
-        welcomeLabel = new JLabel("Welcome to the 24-Hour Schedule application! Please choose beside!");
+        JLabel welcomeLabel = new JLabel("Welcome to the 24-Hour Schedule application! Please choose beside!");
         openingFrame.add(welcomeLabel);
 
         newButton.setActionCommand("newSchedule");
@@ -43,9 +47,12 @@ public class OpeningGUI implements ActionListener {
     }
 
 
-    //takes to one of the two menus
+    // MODIFIES: this
+    // EFFECTS: plays click sound, removes the Opening GUI window and transitions to NewSchedule GUI
+    //          or Schedule GUI both changing schedule, depending on which button was clicked
     @Override
     public void actionPerformed(ActionEvent e) {
+        playClick();
         if (e.getActionCommand().equals("newSchedule")) {
             openingFrame.dispose();
             NewScheduleGUI newScheduleGUI = new NewScheduleGUI();
@@ -66,6 +73,5 @@ public class OpeningGUI implements ActionListener {
             System.out.println("Unable to read from file: " + JSON_STORE_DAY);
         }
     }
-
 
 }

@@ -12,8 +12,11 @@ import java.io.IOException;
 import javax.swing.*;
 
 
-
-public class ScheduleGUI implements ActionListener {
+// The main menu UI for users when dealing with their schedule
+// Citation: some code was obtained from JsonSerializationDemo and Oracles ListDemo.Java
+// URL: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
+// URL: https://docs.oracle.com/javase/tutorial/uiswing/examples/components/index.html
+public class ScheduleGUI extends ClickSound implements ActionListener {
     private JList dayList;
     private DefaultListModel dayListModel;
 
@@ -28,7 +31,6 @@ public class ScheduleGUI implements ActionListener {
 
     private Day schedule;
 
-
     JFrame scheduleFrame = new JFrame();
     JButton addButton = new JButton(addString);
     JButton removeButton = new JButton(removeString);
@@ -36,6 +38,8 @@ public class ScheduleGUI implements ActionListener {
     JButton saveButton = new JButton(saveString);
     JButton loadButton = new JButton(loadString);
 
+    // MODIFIES: this
+    // EFFECTS: initializes the Schedule GUI menu and displays it
     public ScheduleGUI(Day d) {
         jsonDayWriter = new JsonDayWriter(JSON_STORE_DAY);
         jsonDayReader = new JsonDayReader(JSON_STORE_DAY);
@@ -60,7 +64,7 @@ public class ScheduleGUI implements ActionListener {
 
     // MODIFIES: DefaultListModel
     // EFFECTS: adds the activities from a day to the JList
-    private void arrayToListModel(Day d,DefaultListModel dlm) {
+    private void arrayToListModel(Day d, DefaultListModel dlm) {
         dlm.clear();
         for (Activity a : d.getPlan()) {
             dlm.add(a.getStart(), "Name: " + a.getActName() + " " + a.getStart() + ":00-" + a.getEnd() + ":00");
@@ -69,6 +73,7 @@ public class ScheduleGUI implements ActionListener {
     }
 
 
+    // MODIFIES: this
     // EFFECTS: initializes events to the action listeners
     private void initializeButtons() {
         addButton.setActionCommand("addSchedule");
@@ -94,18 +99,11 @@ public class ScheduleGUI implements ActionListener {
     }
 
     // MODIFIES: this
-    // EFFECTS: adds all the main buttons
-    private void removeButtons() {
-        scheduleFrame.remove(addButton);
-        scheduleFrame.remove(removeButton);
-        scheduleFrame.remove(clearButton);
-        scheduleFrame.remove(saveButton);
-        scheduleFrame.remove(loadButton);
-    }
-
-
+    // EFFECTS: plays a button click and performs one of the 5 menu actions, add,
+    //          remove, clear, save or load depending on which button was clicked
     @Override
     public void actionPerformed(ActionEvent e) {
+        playClick();
         if (e.getActionCommand().equals("addSchedule")) {
             scheduleFrame.dispose();
             AddGUI addGUI = new AddGUI(schedule);
@@ -130,6 +128,8 @@ public class ScheduleGUI implements ActionListener {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: updates Schedule GUI to reflect new changes
     private void scheduleReset() {
         scheduleFrame.dispose();
         ScheduleGUI scheduleGUI = new ScheduleGUI(schedule);

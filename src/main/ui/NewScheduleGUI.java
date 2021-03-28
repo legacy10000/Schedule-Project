@@ -7,7 +7,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class NewScheduleGUI implements ActionListener {
+// The UI displayed to the user when they want to make a new schedule.
+public class NewScheduleGUI extends ClickSound implements ActionListener {
 
     private Day schedule;
 
@@ -17,6 +18,8 @@ public class NewScheduleGUI implements ActionListener {
     JTextArea scheduleName = new JTextArea(1, 20);
     JLabel newLabel = new JLabel("Enter day of week in the 1st box and name of schedule in the 2nd");
 
+    // MODIFIES: this
+    // EFFECTS: initializes the NewSchedule GUI menu and displays it
     public NewScheduleGUI() {
         scheduleCreator.setActionCommand("generateSchedule");
         scheduleCreator.addActionListener(this);
@@ -31,8 +34,12 @@ public class NewScheduleGUI implements ActionListener {
         newFrame.setVisible(true);
     }
 
+    // MODIFIES: this
+    // EFFECTS: plays click sound, creates an new schedule according to user desires and
+    //          removes the Opening GUI window and transitions Schedule GUI
     @Override
     public void actionPerformed(ActionEvent e) {
+        playClick();
         if (e.getActionCommand().equals("generateSchedule")) {
             String dayText = dayOfWeek.getText();
             String nameText = scheduleName.getText();

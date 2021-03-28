@@ -8,7 +8,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class AddGUI implements ActionListener {
+// The UI displayed to users when they want to add an activity
+public class AddGUI extends ClickSound implements ActionListener {
 
     private Day schedule;
     JFrame addFrame = new JFrame();
@@ -18,6 +19,8 @@ public class AddGUI implements ActionListener {
     JTextArea endTime = new JTextArea(1, 4);
     JButton activityAdder = new JButton("Add Activity");
 
+    // MODIFIES: this
+    // EFFECTS: initializes the Add GUI menu and displays it
     public AddGUI(Day d) {
         schedule = d;
         activityAdder.setActionCommand("addActivity");
@@ -35,8 +38,12 @@ public class AddGUI implements ActionListener {
     }
 
 
+    // MODIFIES: this
+    // EFFECTS: plays click sound, adds an activity to the day schedule and removes
+    //          the Add GUI window and transitions Schedule GUI
     @Override
     public void actionPerformed(ActionEvent e) {
+        playClick();
         if (e.getActionCommand().equals("addActivity")) {
             String actName = name.getText();
             int start = Integer.parseInt(startTime.getText());

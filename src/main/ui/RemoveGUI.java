@@ -7,7 +7,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class RemoveGUI implements ActionListener {
+// The UI displayed to users when they want to remove an activity
+public class RemoveGUI extends ClickSound implements ActionListener {
 
     private Day schedule;
     JFrame removeFrame = new JFrame();
@@ -15,6 +16,8 @@ public class RemoveGUI implements ActionListener {
     JTextArea name = new JTextArea(1, 20);
     JButton activityRemover = new JButton("Remove Activity");
 
+    // MODIFIES: this
+    // EFFECTS: initializes the Remove GUI menu and displays it
     public RemoveGUI(Day d) {
         schedule = d;
         activityRemover.setActionCommand("removeActivity");
@@ -30,8 +33,12 @@ public class RemoveGUI implements ActionListener {
     }
 
 
+    // MODIFIES: this
+    // EFFECTS: plays click sound, removes an activity from the day schedule and removes
+    //          the Remove GUI window and transitions Schedule GUI
     @Override
     public void actionPerformed(ActionEvent e) {
+        playClick();
         if (e.getActionCommand().equals("removeActivity")) {
             String actName = name.getText();
             schedule.removeActivity(actName);
