@@ -13,9 +13,8 @@ import javax.swing.*;
 
 
 // The main menu UI for users when dealing with their schedule
-// Citation: some code was obtained from JsonSerializationDemo and Oracles ListDemo.Java
+// Citation: some code was obtained from JsonSerializationDemo
 // URL: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
-// URL: https://docs.oracle.com/javase/tutorial/uiswing/examples/components/index.html
 public class ScheduleGUI extends ClickSound implements ActionListener {
     private JList dayList;
     private DefaultListModel dayListModel;

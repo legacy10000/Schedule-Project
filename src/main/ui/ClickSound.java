@@ -6,8 +6,6 @@ import javax.sound.sampled.Clip;
 import java.io.File;
 
 // Class that represents the sound played when a user clicks a button
-// Citation: some of the code was obtained from SuaveSnippets
-// URL: http://suavesnippets.blogspot.com/2011/06/add-sound-on-jbutton-click-in-java.html
 public class ClickSound {
     private static final String clickSound = "./data/soundclick.wav";
 
