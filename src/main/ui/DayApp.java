@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
+// THIS CLASS IS NOW ARCHIVED AND NO LONGER USED
 // The ui application for the Day schedule
 // Citation: some of the code was obtained from JsonSerializationDemo
 // URL: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
