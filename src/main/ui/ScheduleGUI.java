@@ -1,5 +1,6 @@
 package ui;
 
+import exceptions.BeginStopRangeException;
 import model.Activity;
 import model.Day;
 import persistence.JsonDayWriter;
@@ -112,8 +113,7 @@ public class ScheduleGUI extends ClickSound implements ActionListener {
             RemoveGUI removeGUI = new RemoveGUI(schedule);
         }
         if (e.getActionCommand().equals("clearSchedule")) {
-            schedule.clearSchedule();
-            scheduleReset();
+            clearSchedule();
         }
         if (e.getActionCommand().equals("saveSchedule")) {
             JLabel saveStatus = new JLabel("Saved " + schedule.getPlanName() + " to " + JSON_STORE_DAY);
@@ -154,6 +154,17 @@ public class ScheduleGUI extends ClickSound implements ActionListener {
         } catch (FileNotFoundException e) {
             System.out.println("Unable to write to file: " + JSON_STORE_DAY);
         }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: clears schedule
+    private void clearSchedule() {
+        try {
+            schedule.clearSchedule();
+        } catch (BeginStopRangeException e) {
+            // exception should never be thrown with clear
+        }
+        scheduleReset();
     }
 
 }

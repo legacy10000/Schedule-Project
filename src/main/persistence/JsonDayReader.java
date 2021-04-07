@@ -1,5 +1,6 @@
 package persistence;
 
+import exceptions.BeginStopRangeException;
 import model.Activity;
 import model.Day;
 
@@ -45,7 +46,12 @@ public class JsonDayReader {
     private Day parseDay(JSONObject jsonObject) {
         String dw = jsonObject.getString("day of the week");
         String pn = jsonObject.getString("plan name");
-        Day day = new Day(dw, pn);
+        Day day = null;
+        try {
+            day = new Day(dw, pn);
+        } catch (BeginStopRangeException e) {
+            // day should never have any issues
+        }
         addDay(day, jsonObject);
         return day;
     }
@@ -66,8 +72,13 @@ public class JsonDayReader {
         String name = jsonObject.getString("name");
         int start = jsonObject.getInt("start");
         int end = jsonObject.getInt("end");
-        Activity a = new Activity(name, start, end);
-        day.addActivity(a);
+        Activity a = null;
+        try {
+            a = new Activity(name, start, end);
+            day.addActivity(a);
+        } catch (BeginStopRangeException e) {
+            // invalids should never be saved anyways
+        }
     }
 
 }

@@ -2,6 +2,7 @@ package model;
 
 import java.util.LinkedList;
 
+import exceptions.BeginStopRangeException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
@@ -14,7 +15,7 @@ public class Day implements Writable {
 
     //EFFECTS: Creates a new day to insert activities in starting with "Available" slots from 0:00-1:00 to 23:00-24:00,
     //         also includes day of the week and name of schedule
-    public Day(String dw, String pn) {
+    public Day(String dw, String pn) throws BeginStopRangeException {
         planName = pn;
         dayOfWeek = dw;
         plan = new LinkedList<>();
@@ -26,7 +27,7 @@ public class Day implements Writable {
 
     //MODIFIES: this
     //EFFECTS: adds a new activity in the schedule in start time order
-    public void addActivity(Activity a) {
+    public void addActivity(Activity a) throws BeginStopRangeException {
         for (int i = a.getStart(); i < a.getEnd(); i++) {
             plan.set(i, new Activity(a.getActName(), i, (i + 1)));
         }
@@ -34,7 +35,7 @@ public class Day implements Writable {
 
     //MODIFIES: this
     //EFFECTS: removes the specified activity in the list if found (including same names at diff times)
-    public void removeActivity(String s) {
+    public void removeActivity(String s) throws BeginStopRangeException {
         for (int i = 0; i < plan.size(); i++) {
             if (plan.get(i).getActName().equals(s)) {
                 plan.set(i, new Activity("Available", i, (i + 1)));
@@ -44,7 +45,7 @@ public class Day implements Writable {
 
     //MODIFIES: this
     //EFFECTS: clears the current schedule entirely, resetting every slot to available
-    public void clearSchedule() {
+    public void clearSchedule() throws BeginStopRangeException {
         for (int i = 0; i < plan.size(); i++) {
             plan.set(i, new Activity("Available", i, (i + 1)));
         }

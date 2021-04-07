@@ -1,5 +1,6 @@
 package persistence;
 
+import exceptions.BeginStopRangeException;
 import model.Day;
 import model.Activity;
 import org.junit.jupiter.api.Test;
@@ -22,6 +23,8 @@ public class JsonWriterTest {
             fail("The IOException was expected");
         } catch (IOException e) {
             // Yay good job!!!
+        } catch (BeginStopRangeException e) {
+            fail("Exception should never have been thrown");
         }
     }
 
@@ -43,6 +46,8 @@ public class JsonWriterTest {
             assertEquals("Available", d.getPlan().get(23).getActName());
         } catch (IOException e) {
             fail("Exception should not have been thrown");
+        } catch (BeginStopRangeException e) {
+            fail("Exception should never have been thrown");
         }
     }
 
@@ -73,6 +78,8 @@ public class JsonWriterTest {
 
         } catch (IOException e) {
             fail("Exception should not have been thrown");
+        } catch (BeginStopRangeException e) {
+            fail("Exception should never have been thrown");
         }
     }
 

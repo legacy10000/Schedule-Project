@@ -1,5 +1,6 @@
 package ui;
 
+import exceptions.BeginStopRangeException;
 import model.Day;
 
 import javax.swing.*;
@@ -43,7 +44,11 @@ public class NewScheduleGUI extends ClickSound implements ActionListener {
         if (e.getActionCommand().equals("generateSchedule")) {
             String dayText = dayOfWeek.getText();
             String nameText = scheduleName.getText();
-            schedule = new Day(dayText, nameText);
+            try {
+                schedule = new Day(dayText, nameText);
+            } catch (BeginStopRangeException beginStopRangeException) {
+                // exception should never been thrown here (new schedule always good)
+            }
             newFrame.dispose();
             ScheduleGUI scheduleGUI = new ScheduleGUI(schedule);
         }

@@ -1,3 +1,4 @@
+/*
 package ui;
 
 import model.Activity;
@@ -208,3 +209,4 @@ public class DayApp {
     }
 
 }
+ */

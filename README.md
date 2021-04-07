@@ -30,6 +30,11 @@ being organized, so this project should have a good return value for me.
 - As a user I want to be able to name my schedule and specify what day of the week it occurs on
 - As a user, I want to be able to save my schedule to file
 - As a user, I want to be able to be able to load my schedule from file
-- As a user, when I select the quit option from the application menu, I want to be reminded to save my schedule to file 
-  and have the option to do so or not
 - As a user, when I start the application, I want to be given the option to load my schedule from file
+
+Phase 4: Task 2
+For this section I made my code more robust by adding an exception to the Activity constructor in the Activities
+class so that now it will only accept begin and stop integers with proper values, and I no longer need the 
+'REQUIRES' clause there. Since this method was used almost everywhere in my code, many more classes besides just
+Activities have become more robust.
+

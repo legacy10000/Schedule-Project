@@ -1,5 +1,6 @@
 package ui;
 
+import exceptions.BeginStopRangeException;
 import model.Day;
 
 import javax.swing.*;
@@ -41,7 +42,11 @@ public class RemoveGUI extends ClickSound implements ActionListener {
         playClick();
         if (e.getActionCommand().equals("removeActivity")) {
             String actName = name.getText();
-            schedule.removeActivity(actName);
+            try {
+                schedule.removeActivity(actName);
+            } catch (BeginStopRangeException beginStopRangeException) {
+                // remove only uses name so exception shouldn't be thrown
+            }
             removeFrame.dispose();
             ScheduleGUI scheduleGUI = new ScheduleGUI(schedule);
         }

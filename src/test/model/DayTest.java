@@ -1,5 +1,6 @@
 package model;
 
+import exceptions.BeginStopRangeException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,14 +19,18 @@ public class DayTest {
 
     @BeforeEach
     public void runBefore() {
-        testSleep = new Activity("Sleep Morning", 0, 9);
-        testWorkout = new Activity("Workout", 9, 10);
-        testMath101 = new Activity("MATH 101", 10, 12);
-        testStudy = new Activity("Study", 10, 12);
-        testCpsc121 = new Activity("CPSC 121", 2, 3);
-        testCpsc210 = new Activity("CPSC 210", 3, 4);
-        testFull = new Activity("FULL", 0, 23);
-        testDay = new Day("Tuesday", "Test Plan");
+        try {
+            testSleep = new Activity("Sleep Morning", 0, 9);
+            testWorkout = new Activity("Workout", 9, 10);
+            testMath101 = new Activity("MATH 101", 10, 12);
+            testStudy = new Activity("Study", 10, 12);
+            testCpsc121 = new Activity("CPSC 121", 2, 3);
+            testCpsc210 = new Activity("CPSC 210", 3, 4);
+            testFull = new Activity("FULL", 0, 23);
+            testDay = new Day("Tuesday", "Test Plan");
+        } catch (BeginStopRangeException e) {
+            // exception should not have been thrown
+        }
     }
 
     @Test
@@ -36,14 +41,22 @@ public class DayTest {
 
     @Test
     public void testAddActivitySmall() {
-        testDay.addActivity(testCpsc121);
+        try {
+            testDay.addActivity(testCpsc121);
+        } catch (BeginStopRangeException e) {
+            // exception should not have been thrown
+        }
         assertEquals(testCpsc121.getActName(), testDay.getPlan().get(testCpsc121.getStart()).getActName());
         assertEquals("Available", testDay.getPlan().get(testCpsc121.getEnd()).getActName());
     }
 
     @Test
     public void testAddActivityLarge() {
-        testDay.addActivity(testSleep);
+        try {
+            testDay.addActivity(testSleep);
+        } catch (BeginStopRangeException e) {
+            // exception should not have been thrown
+        }
         assertEquals(testSleep.getActName(), testDay.getPlan().get(testSleep.getStart()).getActName());
         assertEquals(testSleep.getActName(), testDay.getPlan().get((testSleep.getStart() + 4)).getActName());
         assertEquals(testSleep.getActName(), testDay.getPlan().get((testSleep.getEnd() - 1)).getActName());
@@ -52,9 +65,13 @@ public class DayTest {
 
     @Test
     public void testAddActivityMany() {
-        testDay.addActivity(testSleep);
-        testDay.addActivity(testWorkout);
-        testDay.addActivity(testCpsc210);
+        try {
+            testDay.addActivity(testSleep);
+            testDay.addActivity(testWorkout);
+            testDay.addActivity(testCpsc210);
+        } catch (BeginStopRangeException e) {
+            // exception should not have been thrown
+        }
         assertEquals(testSleep.getActName(), testDay.getPlan().get(testSleep.getStart()).getActName());
         assertEquals(testSleep.getActName(), testDay.getPlan().get((testSleep.getStart() + 4)).getActName());
         assertEquals(testWorkout.getActName(), testDay.getPlan().get(testWorkout.getStart()).getActName());
@@ -63,21 +80,29 @@ public class DayTest {
 
     @Test
     public void testRemoveActivity() {
-        testDay.addActivity(testStudy);
-        testDay.removeActivity(testStudy.getActName());
+        try {
+            testDay.addActivity(testStudy);
+            testDay.removeActivity(testStudy.getActName());
+        } catch (BeginStopRangeException e) {
+            // exception should not have been thrown
+        }
         assertEquals("Available", testDay.getPlan().get(testStudy.getStart()).getActName());
         assertEquals("Available", testDay.getPlan().get((testStudy.getStart() + 1)).getActName());
     }
 
     @Test
     public void testRemoveActivityMany() {
-        testDay.addActivity(testMath101);
-        testDay.addActivity(testSleep);
-        testDay.addActivity(testCpsc210);
-        testDay.removeActivity(testSleep.getActName());
-        testDay.removeActivity(testMath101.getActName());
-        testDay.removeActivity(testCpsc210.getActName());
-        testDay.addActivity(testStudy);
+        try {
+            testDay.addActivity(testMath101);
+            testDay.addActivity(testSleep);
+            testDay.addActivity(testCpsc210);
+            testDay.removeActivity(testSleep.getActName());
+            testDay.removeActivity(testMath101.getActName());
+            testDay.removeActivity(testCpsc210.getActName());
+            testDay.addActivity(testStudy);
+        } catch (BeginStopRangeException e) {
+            // exception should not have been thrown
+        }
         assertEquals(testStudy.getActName(), testDay.getPlan().get(testStudy.getStart()).getActName());
         assertEquals(testStudy.getActName(), testDay.getPlan().get((testStudy.getStart() + 1)).getActName());
         assertEquals("Available", testDay.getPlan().get(testCpsc210.getStart()).getActName());
@@ -90,10 +115,15 @@ public class DayTest {
 
     @Test
     public void testClearSchedule() {
-        testDay.addActivity(testFull);
-        testDay.clearSchedule();
+        try {
+            testDay.addActivity(testFull);
+            testDay.clearSchedule();
+        } catch (BeginStopRangeException e) {
+            e.printStackTrace();
+        }
         assertEquals("Available", testDay.getPlan().get(0).getActName());
         assertEquals("Available", testDay.getPlan().get(12).getActName());
         assertEquals("Available", testDay.getPlan().get(23).getActName());
     }
+
 }

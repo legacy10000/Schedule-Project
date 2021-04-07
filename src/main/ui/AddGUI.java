@@ -1,5 +1,6 @@
 package ui;
 
+import exceptions.BeginStopRangeException;
 import model.Activity;
 import model.Day;
 
@@ -48,8 +49,13 @@ public class AddGUI extends ClickSound implements ActionListener {
             String actName = name.getText();
             int start = Integer.parseInt(startTime.getText());
             int end = Integer.parseInt(endTime.getText());
-            Activity activity = new Activity(actName, start, end);
-            schedule.addActivity(activity);
+            Activity activity = null;
+            try {
+                activity = new Activity(actName, start, end);
+                schedule.addActivity(activity);
+            } catch (BeginStopRangeException beginStopRangeException) {
+                // do nothing, no activity added
+            }
             addFrame.dispose();
             ScheduleGUI scheduleGUI = new ScheduleGUI(schedule);
         }

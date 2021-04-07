@@ -1,5 +1,6 @@
 package persistence;
 
+import exceptions.BeginStopRangeException;
 import model.Day;
 import org.junit.jupiter.api.Test;
 

@@ -1,6 +1,7 @@
 package model;
 
 
+import exceptions.BeginStopRangeException;
 import persistence.Writable;
 import org.json.JSONObject;
 
@@ -10,12 +11,16 @@ public class Activity implements Writable {
     private int start;       // the starting time of the activity
     private int end;         // the ending time of the activity
 
-    //REQUIRES: begin from 0 to 23, stop from 1 to 24, begin < stop
     //EFFECTS: creates a new activity to be input in the schedule, with name, start and end time
-    public Activity(String name, int begin, int stop) {
-        actName = name;
-        start = begin;
-        end = stop;
+    //         throws BeginStopRangeException if begin and stop values are outside range or begin > stop
+    public Activity(String name, int begin, int stop) throws BeginStopRangeException {
+        if (begin > stop || begin < 0 || begin > 23 || stop < 1 || stop > 24) {
+            throw new BeginStopRangeException();
+        } else {
+            actName = name;
+            start = begin;
+            end = stop;
+        }
 
     }
 
