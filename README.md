@@ -38,3 +38,9 @@ class so that now it will only accept begin and stop integers with proper values
 'REQUIRES' clause there. Since this method was used almost everywhere in my code, many more classes besides just
 Activities have become more robust.
 
+Phase 4: Task 3
+After making my UML diagram for the project its become pretty clear that there is a good amount of refactoring I can
+do still in one section:
+- Make some sort of common interface or superclass for the GUI classes (to reduce their repetitiveness)
+Everything else I think is fine, but by doing this my diagram would become a lot more clear and there would be less
+work for in having to repeat similar methods and functions.
